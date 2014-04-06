@@ -5,6 +5,9 @@
 
 // run with http://localhost:3000/project/1
 
+// use PostMan to customise HTTP request to generate and test PUT requests to the server
+// chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm/index.html
+
 // import seed data from /data/index.js as an object
 var projects = require('../data');
 
@@ -44,5 +47,18 @@ exports.project = function(req, res){
 		// else fetch record at this 'number'
 		// and get info from project, sending info back as JSON
 		res.json(projects[number].getInformation());
+	}  
+};
+
+exports.completed = function (req, res){
+	var number = req.param('number'); 
+
+	if (typeof projects[number] === 'undefined') {
+		res.status(404).json({status: 'error'});
+	} else {
+		// use triggerCompleted() method to change project record
+		projects[number].triggerFinish();
+		// send a status of done when complete 
+		res.json({status: 'done'});
 	}  
 };
