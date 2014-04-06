@@ -1,38 +1,46 @@
-// module project. capable of setting and getting data
+// export single function using module.exports function
+// seperate function scopes to avoid issue of multiple 
+// instances retrieving the same original data
+// due to modules caching when loaded for first time.
+// each time this function is called a new variable
+// function scope is created so data for each project 
+// is kept seperate.
+module.exports = function (info) {
 
-// create variables within the scope of this module
-// to store project information
-var projectNum, projectName, projectDesc, projectStack;
-
-// create setter functions for each variable
-// we want to export the individual functions
-// so other code may use it. it takes one argument
-// using short variables to avoid conflicts
-
-exports.setNumber = function (num) {
-	projectNum = num;
-};
-
-exports.setName = function (name) {
-	projectName = name;
-};
-
-exports.setDescription = function (desc) {
-	projectDesc = desc;
-};
-
-exports.setStack = function (stack) {
-	projectStack = stack;
-};
-
-// define a getter function to return object literal
-// containing the values of this project module
-
-exports.getInfo = function() {
-	return {
-		projectNum: projectNum,
-		projectName: projectName,
-		projectDesc: projectDesc,
-		projectStack: projectStack
+	// define object values with placeholders
+	var values = {
+		number: null,
+		name: null,
+		description: null,
+		stack: null,
+		actualStart: null,
+		actualFinish: null
 	};
+
+	// setter
+	// loop over each property of variable 'values' 
+	// only want valid predefined object properties
+	for(var prop in values) {
+		if(values[prop] !== 'undefined') {
+			// assign to info object passed in on line 1
+			values[prop] = info[prop]; 
+		}
+	}
+
+	// 
+	var functions = {
+		triggerStart: function () {
+			values.actualStart = Date.now();
+		},
+		triggerFinish: function () {
+			values.actualFinish = Date.now();
+		},
+		// return values set for 'values' variable 
+		getInformation: function () {
+			return values;
+		}
+	};
+
+	return functions;
+
 };
