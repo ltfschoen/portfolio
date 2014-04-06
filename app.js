@@ -35,6 +35,11 @@ if ('development' == app.get('env')) {
 // when user visits URL is defined here
 app.get('/project/:number', routes.project);
 
+// add RESTful web services including a
+// put request to mark specific projects as completed
+// using function named 'completed'
+app.put('/project/:number/completed', routes.completed);
+
 //app.get('/', routes.index);
 app.get('/users', user.list);
 
