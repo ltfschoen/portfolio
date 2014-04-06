@@ -15,8 +15,8 @@ var firstProjectData = {
 	actualFinish: Date.now()
 };
 
-// define new variable. using project function returned from the project module. passing it the first project data
-var firstProject = project(firstProjectData);
+// define new variable. using project function returned from the project module. create the first project data (no longer just retrieving it already created from module)
+var firstProject = project.create(firstProjectData);
 
 // calling the triggerStart method on the object
 firstProject.triggerStart();
@@ -34,11 +34,13 @@ var secondProjectData = {
 	actualFinish: Date.now()
 };
 
-var secondProject = project(secondProjectData);
+var secondProject = project.create(secondProjectData);
 
 console.log(secondProject.getInformation());
 // call first project to prove that seperate project object is being retrieved without caching issues
 console.log(firstProject.getInformation());
+console.log("Project count: " + project.getCount());
+console.log("Stacks used: " + project.getStack());
 
 // load the modules in package.json
 var express = require('express');

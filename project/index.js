@@ -1,3 +1,8 @@
+// track project objects created in this module
+var count = 0;
+// collect stack across of projects
+var stacks = [];
+
 // capital Projects (use as base for new project objects) 
 var Project = function () {
 
@@ -38,10 +43,8 @@ var Project = function () {
 }; 
 
 // create a new instance of the project object
-// enforces consistent way to retrieve new objects
-// by serving as a Factory design pattern
-// for streamlined handling of creating object instances
-module.exports = function (info) {
+// non-Factory design pattern (without module)
+exports.create = function (info) {
 
 	// set to new copy of project
 	var instance = new Project();
@@ -49,6 +52,23 @@ module.exports = function (info) {
 	// fill new project object with info being passed in
 	instance.fill(info);
 
+	count++;
+	// add stack of each project if the stack does 
+	// not already exist in the array 'stacks'
+	if (stacks.indexOf(info['stack']) < 0) {
+		stacks.push(info['stack']);
+	}
+
 	return instance;
 
 };
+
+exports.getCount = function () {
+	return count;
+};
+
+// return incompleted array
+exports.getStack = function () {
+	return stacks;
+};
+
