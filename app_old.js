@@ -5,40 +5,15 @@
 // load the project module
 var project = require('./project');
 
-// set data for project
-var firstProjectData = {
-	number: 1,
-	name: 'Littlehumans',
-	description: 'Midwifery web app',
-	stack: 'Ruby on Rails',
-	actualStart: Date.now(),
-	actualFinish: Date.now()
-};
+// set data for portfolio
+project.setNumber(1);
+console.log(project.setNumber);
+project.setName('Portfolio');
+project.setDescription('Portfolio');
+project.setStack('Node.js');
 
-// define new variable. using project function returned from the project module. passing it the first project data
-var firstProject = project(firstProjectData);
-
-// calling the triggerStart method on the object
-firstProject.triggerStart();
-
-// output results to console
-console.log(firstProject.getInformation());
-
-// repeat for second project
-var secondProjectData = {
-	number: 2,
-	name: 'Trendmyhunch',
-	description: 'Idea web app',
-	stack: 'Ruby on Rails',
-	actualStart: Date.now(),
-	actualFinish: Date.now()
-};
-
-var secondProject = project(secondProjectData);
-
-console.log(secondProject.getInformation());
-// call first project to prove that seperate project object is being retrieved without caching issues
-console.log(firstProject.getInformation());
+// get data and display it. must use getInfo() with parenthesise!
+console.log(project.getInfo());
 
 // load the modules in package.json
 var express = require('express');
