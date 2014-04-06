@@ -31,8 +31,10 @@ if ('development' == app.get('env')) {
 
 // define routes for app. get request
 // callback function with arguments request object
-app.get('/firstProject', routes.firstProject);
-app.get('/secondProject', routes.secondProject);
+// 'number' variable used as param passed to function
+// when user visits URL is defined here
+app.get('/project/:number', routes.project);
+
 //app.get('/', routes.index);
 app.get('/users', user.list);
 
