@@ -3,48 +3,46 @@
  * GET home page.
  */
 
-// run with http://localhost:3000/firstProject
+// run with http://localhost:3000/project/1
+
+// import seed data from /data/index.js as an object
+var projects = require('../data');
 
 // require index.js in project directory
 var project = require('../project');
-
-// create new projects based on project module 
-// set data for projects 
-var firstProject = project.create({
-	number: 1,
-	name: 'Littlehumans',
-	description: 'Midwifery web app',
-	stack: 'Ruby on Rails',
-	actualStart: Date.now(),
-	actualFinish: Date.now()
-});
-
-var secondProject = project.create({
-	number: 2,
-	name: 'Trendmyhunch',
-	description: 'Idea web app',
-	stack: 'Ruby on Rails',
-	actualStart: Date.now(),
-	actualFinish: Date.now()
-});
-
-// calling the triggerStart method on the object
-firstProject.triggerStart();
+console.log("\nProject seed data: " + "\n");
+console.log(projects);
+// loop through and process all imported seed data
+// turning properties into objects
+for(var number in projects) {
+	// set each object property to and object created by 
+	// project module
+	projects[number] = project.create(projects[number]); 
+}
 
 // output results to console
-console.log(firstProject.getInformation());
-console.log(secondProject.getInformation());
-console.log("Project count: " + project.getCount());
-console.log("Stacks used: " + project.getStack());
+console.log("\nProject count: " + project.getCount() + "\n");
 
-// define functions to return project info
+// define function to be handled to return project info
 // to browser using json method (instead of render)
 // passing in the project information
 // and calling the function
-exports.firstProject = function(req, res){
-  res.json(firstProject.getInformation());
-};
+// use URL variable to find project information
+// defined in app.js ('number' is variable determining 
+// which project to load in browser
+exports.project = function(req, res){
+	// source of 'number' param defined in app.js
+	var number = req.param('number'); 
 
-exports.secondProject = function(req, res){
-  res.json(secondProject.getInformation());
+	// use 'number' to perform look-up only 
+	// if valid project specified. 
+	// check if project info is undefined
+	if (typeof projects[number] === 'undefined') {
+		// return error 404 with status object
+		res.status(404).json({status: 'error'});
+	} else {
+		// else fetch record at this 'number'
+		// and get info from project, sending info back as JSON
+		res.json(projects[number].getInformation());
+	}  
 };
