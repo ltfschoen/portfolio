@@ -1,14 +1,8 @@
-// export single function using module.exports function
-// seperate function scopes to avoid issue of multiple 
-// instances retrieving the same original data
-// due to modules caching when loaded for first time.
-// each time this function is called a new variable
-// function scope is created so data for each project 
-// is kept seperate.
-module.exports = function (info) {
+// capital Projects (use as base for new project objects) 
+var Project = function () {
 
 	// define object values with placeholders
-	var values = {
+	this.data = {
 		number: null,
 		name: null,
 		description: null,
@@ -17,30 +11,44 @@ module.exports = function (info) {
 		actualFinish: null
 	};
 
-	// setter
-	// loop over each property of variable 'values' 
+	// setter loops over each property of var 'values' 
 	// only want valid predefined object properties
-	for(var prop in values) {
-		if(values[prop] !== 'undefined') {
-			// assign to info object passed in on line 1
-			values[prop] = info[prop]; 
-		}
-	}
-
-	// 
-	var functions = {
-		triggerStart: function () {
-			values.actualStart = Date.now();
-		},
-		triggerFinish: function () {
-			values.actualFinish = Date.now();
-		},
-		// return values set for 'values' variable 
-		getInformation: function () {
-			return values;
+	this.fill = function (info) {
+		for(var prop in this.data) {
+			if(this.data[prop] !== 'undefined') {
+				// assign to info object passed in on line 1
+				this.data[prop] = info[prop]; 
+			}
 		}
 	};
 
-	return functions;
+	this.triggerStart = function () {
+		this.data.actualStart = Date.now();
+	};
+
+	this.triggerFinish = function () {
+		this.data.actualFinish = Date.now();
+	};
+
+	// return values set for 'this.data' variable 
+	this.getInformation = function () {
+		return this.data;
+	};
+
+}; 
+
+// create a new instance of the project object
+// enforces consistent way to retrieve new objects
+// by serving as a Factory design pattern
+// for streamlined handling of creating object instances
+module.exports = function (info) {
+
+	// set to new copy of project
+	var instance = new Project();
+
+	// fill new project object with info being passed in
+	instance.fill(info);
+
+	return instance;
 
 };
