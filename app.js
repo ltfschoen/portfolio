@@ -2,46 +2,6 @@
  * Module dependencies.
  */
 
-// load the project module
-var project = require('./project');
-
-// set data for project
-var firstProjectData = {
-	number: 1,
-	name: 'Littlehumans',
-	description: 'Midwifery web app',
-	stack: 'Ruby on Rails',
-	actualStart: Date.now(),
-	actualFinish: Date.now()
-};
-
-// define new variable. using project function returned from the project module. create the first project data (no longer just retrieving it already created from module)
-var firstProject = project.create(firstProjectData);
-
-// calling the triggerStart method on the object
-firstProject.triggerStart();
-
-// output results to console
-console.log(firstProject.getInformation());
-
-// repeat for second project
-var secondProjectData = {
-	number: 2,
-	name: 'Trendmyhunch',
-	description: 'Idea web app',
-	stack: 'Ruby on Rails',
-	actualStart: Date.now(),
-	actualFinish: Date.now()
-};
-
-var secondProject = project.create(secondProjectData);
-
-console.log(secondProject.getInformation());
-// call first project to prove that seperate project object is being retrieved without caching issues
-console.log(firstProject.getInformation());
-console.log("Project count: " + project.getCount());
-console.log("Stacks used: " + project.getStack());
-
 // load the modules in package.json
 var express = require('express');
 var routes = require('./routes');
@@ -71,7 +31,9 @@ if ('development' == app.get('env')) {
 
 // define routes for app. get request
 // callback function with arguments request object
-app.get('/', routes.index);
+app.get('/firstProject', routes.firstProject);
+app.get('/secondProject', routes.secondProject);
+//app.get('/', routes.index);
 app.get('/users', user.list);
 
 // startup the server using methods of the http module
