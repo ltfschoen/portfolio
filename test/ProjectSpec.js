@@ -66,4 +66,28 @@ describe('projects', function () {
 		});
 	});
 
+	it('should display list of projects in html format',
+	function (done) {
+		
+		supertest(app)
+		.get('/list')
+		.expect(200)
+		.end(function (err, res) {
+			res.status.should.equal(200);
+			done();
+		});
+	});
+
+	it('should display list of projects in json format',
+	function (done) {
+		
+		supertest(app)
+		.get('/list/json')
+		.expect(200)
+		.end(function (err, res) {
+			res.status.should.equal(200);
+			done();
+		});
+	});
+
 });
