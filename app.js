@@ -21,6 +21,19 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
+
+// add Middleware to change default HTTP Headers from displaying 
+// 'X-Powered-By: Express' in Chrome Postman by default.
+// function with three arguments (request, response, next)
+// 'next' argument is required to ensure the server returns  
+// the next piece of Middleware
+app.use(function (req, res, next) {
+	// reset the 'X-Powered-By:' Header
+	res.set('X-Powered-By', 'Project Tracker');
+	// must call the 'next' function to other Middleware may run
+	next();
+});
+
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
