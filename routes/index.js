@@ -3,6 +3,10 @@
  * GET home page.
  */
 
+// include schema for 'projects' to connect to mongo labs database
+// used to save records to the database 
+var ProjectSchema = require('../schemas/project');
+
 // wrap this file into a module.exports function with 'projects'
 // as single argument
 module.exports = function (projects) {
@@ -11,7 +15,7 @@ module.exports = function (projects) {
 	var project = require('../project');
 	//console.log("\nProject seed data: " + "\n");
 	//console.log(projects);
-	
+
 	// loop through and process all imported seed data
 	// turning properties into objects
 	for(var number in projects) {
@@ -58,6 +62,25 @@ module.exports = function (projects) {
 		} else {
 			// use triggerCompleted() method to change project record
 			projects[number].triggerFinish();
+
+			// save data to the mongo lab database 'projects'
+			// with timestamp 
+			var record = new ProjectSchema(
+				projects[number].getInformation()
+			);
+			
+			// takes a function and argument for any errors that occur
+			record.save(function(err) {
+				if (err) {
+					console.log(err);
+					// tell browser there was internal server error 500
+					// and unable to save the record
+					res.status(500).json({status: 'failure'});
+				} else {
+					res.json({status: 'success'});
+				}
+			});
+
 			// send a status of done when complete 
 			res.json({status: 'done'});
 		}  
