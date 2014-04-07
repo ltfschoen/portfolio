@@ -65,6 +65,9 @@ module.exports = function (projects) {
 	// add additional route to view list in JSON
 	app.get('/list/json', routes.listJSON);
 
+	// add stacks list
+	app.get('/stacks', routes.listStacks);
+
 	//app.get('/', routes.index);
 	app.get('/users', user.list);
 

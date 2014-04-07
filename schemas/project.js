@@ -14,7 +14,7 @@ module.exports = mongoose.model('Project', {
 	number: Number,
 	name: String,
 	description: String,
-	stacks: String,
-	actualStart: String,
-	actualFinish: String
+	stack: String,
+	actualStart: Date,
+	actualFinish: Date
 });
