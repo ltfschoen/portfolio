@@ -4,12 +4,16 @@
 
 // export application from this file to server.js in the form 
 // of a function taking 'projects' as single argument
-module.exports = function (projects) {
+// db added as argument for sessions
+module.exports = function (projects, db) {
 
 	// load the modules in package.json
 	// http server modules loaded seperately in server.js
 	// passing 'projects' into the route handling functions
 	var express = require('express');
+	// require Connect-Mongo and store in a variable
+    // pass Express into Connect-Mongo
+    var MongoStore = require('connect-mongo')(express); 
 	var routes = require('./routes')(projects);
 	var user = require('./routes/user');
 	var path = require('path');
@@ -23,6 +27,27 @@ module.exports = function (projects) {
 	app.set('view engine', 'jade');
 	app.use(express.favicon());
 	app.use(express.logger('dev'));
+
+    // setup Express to use Sessions
+    // add the cookieParser software to read the cookies that browser sending to the server
+    app.use(express.cookieParser());
+
+	// session password
+	var dbSessionPass = process.env.DB_SESSION_SECRET;
+
+    // add session, object argument, configures session
+    // add store property tells Express where to store our session
+    // in new MongoStore instance, whose constructor takes an object
+    // set property for mongoose_connection (no connection available)
+    // pass it in (also adding 'db' as another argument on line 6)
+
+    app.use(express.session({
+    	secret: dbSessionPass,
+        store: new MongoStore({
+        	mongoose_connection: db
+        })
+    }));  
+
 	app.use(express.json());
 	app.use(express.urlencoded());
 	app.use(express.methodOverride());

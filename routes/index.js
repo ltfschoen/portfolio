@@ -40,6 +40,12 @@ module.exports = function (projects) {
 	functions.project = function(req, res){
 		// source of 'number' param defined in app.js
 		var number = req.param('number'); 
+		
+		// sessions are available in this Express app
+		// stored in mongo lab database
+		// track last project user viewed, display it on project list page
+		// use request property called 'session' and set it
+		req.session.lastNumber = number; 
 
 		// use 'number' to perform look-up only 
 		// if valid project specified. 
@@ -124,7 +130,9 @@ module.exports = function (projects) {
 				// render jade view called 'stacks'
 				res.render('stacks', {
 					title: 'List of Stacks for Completed Projects',
-					listStacks: listStacks
+					listStacks: listStacks,
+					// pass in last viewed project (for sessions)
+					lastNumber: req.session.lastNumber
 				});
 			};
 		});

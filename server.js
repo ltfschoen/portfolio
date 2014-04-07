@@ -13,7 +13,8 @@ var db = require('./db');
 
 // load and tie the app.js file to this server.js file
 // passing 'projects' into the route handling functions
-var app = require('./app')(projects);
+// pass in db for sessions
+var app = require('./app')(projects, db);
 
 // startup the server using methods of the http module
 // call listen method and tell it port to listen on
