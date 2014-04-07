@@ -9,8 +9,9 @@ module.exports = function (projects) {
 
 	// require index.js in project directory
 	var project = require('../project');
-	console.log("\nProject seed data: " + "\n");
-	console.log(projects);
+	//console.log("\nProject seed data: " + "\n");
+	//console.log(projects);
+	
 	// loop through and process all imported seed data
 	// turning properties into objects
 	for(var number in projects) {
