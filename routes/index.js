@@ -138,6 +138,28 @@ module.exports = function (projects) {
 		});
 	};
 
+	// define two route handlers for 'user' and 'login' for Passport
+	functions.login = function(req, res) {
+		// call render method of response object
+		// pass in two args: login (jade view), title
+		res.render('login', {title: 'Log in'});
+	};
+
+	functions.user = function(req, res) {
+		// check the user property session of Passport
+		// redirect user to login page if not actually there
+		if (req.session.passport.user === undefined) {
+			res.redirect('/login');
+		} else {
+		// render user page if valid user. call 'user' view. 
+		// pass in title, pass in user info
+			res.render('user', {
+				title: 'Welcome!',
+				user: req.user
+			});
+		};
+	};
+
 	// return functions from this function
 	return functions;
 
