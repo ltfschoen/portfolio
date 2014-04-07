@@ -30,6 +30,11 @@
   "devDependencies": {
     "mocha": "^1.18.2",
     "should": "^3.2.0",
-    "supertest": "^0.10.0"
+    "supertest": "^0.10.0",
+    "istanbul": "^0.2.7"
+  },
+  "scripts": {
+    "test":
+    "./node_modules/.bin/istanbul test ./node_modules/.bin/_mocha -- -R spec"
   }
 }
