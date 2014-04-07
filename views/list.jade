@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+  ul
+    // 'index' is object property name
+    // 'project' is the object property value
+    each project, index in projects
+      // raw javascript
+      // set 'project' variable to info from 'project' object
+      // 'project' objects from module retrieved with 
+      // getInformation() method
+      - project = project.getInformation()
+      // define list item. output properties by concat string
+      li= project.number + ': ' + project.name + '-' + project.description + '-' + project.stacks + '-' + project.actualStart + '-' + project.actualFinish
