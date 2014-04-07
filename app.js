@@ -53,6 +53,10 @@ app.get('/project/:number', routes.project);
 // using function named 'completed'
 app.put('/project/:number/completed', routes.completed);
 
+// add route called 'list' to view list.jade
+// define function to handle this list. add function to routes module
+app.get('/list', routes.list);
+
 //app.get('/', routes.index);
 app.get('/users', user.list);
 

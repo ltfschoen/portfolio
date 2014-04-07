@@ -62,3 +62,12 @@ exports.completed = function (req, res){
 		res.json({status: 'done'});
 	}  
 };
+
+exports.list = function (req, res){
+	// handler fn to call render method of the response object
+	// two arguments: view, object with data to pass to view
+	res.render('list', {
+		title: 'All Projects', // defined in list.jade
+		projects: projects
+	});
+};
