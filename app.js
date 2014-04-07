@@ -57,6 +57,9 @@ app.put('/project/:number/completed', routes.completed);
 // define function to handle this list. add function to routes module
 app.get('/list', routes.list);
 
+// add additional route to view list in JSON
+app.get('/list/json', routes.listJSON);
+
 //app.get('/', routes.index);
 app.get('/users', user.list);
 

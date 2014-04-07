@@ -71,3 +71,15 @@ exports.list = function (req, res){
 		projects: projects
 	});
 };
+
+// list all project data as valid JSON at:
+// http://localhost:3000/list/json
+exports.listJSON = function (req, res){
+	var projectData = [];
+
+	// iterate over all projects to get project data and put it into an array. avoids invalid JSON file with numbers as property names.
+	for(var number in projects) {
+		projectData.push(projects[number].getInformation());
+	}
+	res.json(projectData);
+};
