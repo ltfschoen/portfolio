@@ -14,6 +14,10 @@ module.exports = function (projects, db) {
 	// require Connect-Mongo and store in a variable
     // pass Express into Connect-Mongo
     var MongoStore = require('connect-mongo')(express); 
+
+    // add Passport for login
+	var passport = require('./auth');
+
 	var routes = require('./routes')(projects);
 	var user = require('./routes/user');
 	var path = require('path');
@@ -47,6 +51,12 @@ module.exports = function (projects, db) {
         	mongoose_connection: db
         })
     }));  
+
+	// add Passport as Middleware to this app
+	// initialize to startup Passport 
+	app.use(passport.initialize());
+	// tell Passport to use the Sessions in Express and store them
+	app.use(passport.session());
 
 	app.use(express.json());
 	app.use(express.urlencoded());
@@ -93,8 +103,20 @@ module.exports = function (projects, db) {
 	// add stacks list
 	app.get('/stacks', routes.listStacks);
 
-	//app.get('/', routes.index);
-	app.get('/users', user.list);
+	// add Passport routes
+	// route for login form
+	app.get('/login', routes.login);
+	// route for handling login form. arguements: strategy, object
+	// where object defines two redirect routes for fail/success login
+	app.post('/login', passport.authenticate('local', {
+		// login failure redirect to login form
+		failureRedirect: '/login', 
+		// login success redirect to user page 
+		successRedirect: '/user'
+	}));
+	// route for display user login info after successful login
+
+	app.get('/user', routes.user);
 
 	return app;
 
