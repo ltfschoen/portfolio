@@ -6,6 +6,34 @@
 // include schema for 'projects' to connect to mongo labs database
 // used to save records to the database 
 var ProjectSchema = require('../schemas/project');
+// require core module 'events' and get property EventEmitter from module
+var Emitter = require('events').EventEmitter;
+
+// create new emitter and assign to new instance of Emitter
+var projectEmitter = new Emitter();
+
+// create a listener for the 'finished' event
+// listeners will record the data in the mongo lab db 
+// args: name of event, function taking 'project' as single arg
+projectEmitter.on('finished', function(project) {
+	// save data to the mongo lab database 'projects'
+	// with timestamp 
+	var record = new ProjectSchema(
+		project.getInformation()
+	);
+	
+	// takes a function and argument for any errors that occur
+	record.save(function(err) {
+		if (err) {
+			console.log(err);
+		};
+	});
+});
+
+// create a second listener for the 'finished' event
+projectEmitter.on('finished', function(project) {
+	console.log("Project finished: " + project.data.number);
+});
 
 // wrap this file into a module.exports function with 'projects'
 // as single argument
@@ -22,7 +50,7 @@ module.exports = function (projects) {
 		// set each object property to and object created by 
 		// project module
 		projects[number] = project.create(projects[number]); 
-	}
+	};
 
 	// output results to console
 	console.log("\nProject count: " + project.getCount() + "\n");
@@ -57,7 +85,7 @@ module.exports = function (projects) {
 			// else fetch record at this 'number'
 			// and get info from project, sending info back as JSON
 			res.json(projects[number].getInformation());
-		}  
+		};
 	};
 
 	functions.completed = function (req, res){
@@ -69,27 +97,14 @@ module.exports = function (projects) {
 			// use triggerCompleted() method to change project record
 			projects[number].triggerFinish();
 
-			// save data to the mongo lab database 'projects'
-			// with timestamp 
-			var record = new ProjectSchema(
-				projects[number].getInformation()
-			);
+			// emit an event just after project has finished
+			// args: event type, type of data to pass (project itself)
+			projectEmitter.emit('finished', projects[number]);
 			
-			// takes a function and argument for any errors that occur
-			record.save(function(err) {
-				if (err) {
-					console.log(err);
-					// tell browser there was internal server error 500
-					// and unable to save the record
-					res.status(500).json({status: 'failure'});
-				} else {
-					res.json({status: 'success'});
-				}
-			});
-
-			// send a status of done when complete 
-			res.json({status: 'done'});
-		}  
+			// send success status immediately confirming project finished
+			// to avoid user waiting for delays of record being saved first
+			res.json({status: 'success'});	
+		}; 
 	};
 
 	functions.list = function (req, res){
@@ -109,7 +124,7 @@ module.exports = function (projects) {
 		// iterate over all projects to get project data and put it into an array. avoids invalid JSON file with numbers as property names.
 		for(var number in projects) {
 			projectData.push(projects[number].getInformation());
-		}
+		};
 		res.json(projectData);
 	};
 
