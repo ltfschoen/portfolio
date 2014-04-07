@@ -1,7 +1,7 @@
 // track project objects created in this module
 var count = 0;
 // collect stack across of projects
-var stacks = [];
+var projectStacks = [];
 
 // capital Projects (use as base for new project objects) 
 var Project = function () {
@@ -55,8 +55,8 @@ exports.create = function (info) {
 	count++;
 	// add stack of each project if the stack does 
 	// not already exist in the array 'stacks'
-	if (stacks.indexOf(info['stack']) < 0) {
-		stacks.push(info['stack']);
+	if (projectStacks.indexOf(info['stack']) < 0) {
+		projectStacks.push(info['stack']);
 	}
 
 	return instance;
@@ -69,6 +69,6 @@ exports.getCount = function () {
 
 // return incompleted array
 exports.getStack = function () {
-	return stacks;
+	return projectStacks;
 };
 

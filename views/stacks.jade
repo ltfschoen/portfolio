@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+  ul
+    // 'index' is object property name
+    // 'project' is the object property value
+    each project, index in listStacks
+      // raw javascript
+      // set 'project' variable to info from 'project' object
+      // 'project' objects from module 
+      // calling data directly from mongo lab db instead of project objects
+      // so do not call getInformation() method to get project
+      // objects however dates are in numerical timestamp change these dates by assign to new date object launched taking actual launched property
+      - launched = new Date(project.actualFinish)
+      // define list item. output properties by concat string
+      li= project.number + ': ' + project.name + '-' + project.description + '-' + project.stack + '-' + launched

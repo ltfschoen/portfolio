@@ -107,6 +107,29 @@ module.exports = function (projects) {
 		res.json(projectData);
 	};
 
+	functions.listStacks = function (req, res) {
+		// to sort by stacks field from mongo lab database
+		// use setOptions method with arguments:
+		//   - sort, by field
+		ProjectSchema.find()
+		.setOptions({sort: 'stack'})
+		// execute query using exec fn with arguments: 
+		//   - function + args (error, results)
+		.exec(function(err, listStacks) {
+			if (err) {
+				console.log(err);
+				// tell browser of error, else render results
+				res.status(500).json({status: 'failure'});
+			} else {
+				// render jade view called 'stacks'
+				res.render('stacks', {
+					title: 'List of Stacks for Completed Projects',
+					listStacks: listStacks
+				});
+			};
+		});
+	};
+
 	// return functions from this function
 	return functions;
 

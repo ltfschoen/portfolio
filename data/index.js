@@ -3,24 +3,24 @@ module.exports = {
 		"number": 1,
 		"name": "Littlehumans",
 		"description": "Midwifery app",
-		"stacks": "jQuery",
-		"actualStart": "12:00 PM",
-		"actualFinish": "1:00 PM"
+		"stack": "jQuery",
+		"actualStart": "2013-02-14T12:15:03-08:00",
+		"actualFinish": "2013-02-14T13:00:03-08:00"
 	},
 	"2": {
 		"number": 2,
 		"name": "Trendmyhunch",
 		"description": "Idea app",
-		"stacks": "Ruby on Rails",
-		"actualStart": "9:00 AM",
-		"actualFinish": "9:30 AM"
+		"stack": "Ruby on Rails",
+		"actualStart": "2013-02-14T13:15:03-08:00",
+		"actualFinish": "2013-02-14T13:45:03-08:00"
 	},
 	"3": {
 		"number": 3,
 		"name": "Lukolio",
 		"description": "Portfolio app",
-		"stacks": "Javascript",
-		"actualStart": "5:00 PM",
-		"actualFinish": "8:30 PM"
+		"stack": "Javascript",
+		"actualStart": "2013-02-14T20:30:03-08:00",
+		"actualFinish": "2013-02-14T21:00:03-08:00"
 	}
 };
