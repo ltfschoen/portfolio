@@ -4,6 +4,8 @@ var app = require('./helpers/app');
 var should = require('should');
 var supertest = require('supertest');
 
+var utils = require('./helpers/utils');
+
 // write unit tests 
 // pass into describe: label, anonymous function
 describe('projects', function () {

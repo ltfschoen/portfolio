@@ -46,7 +46,7 @@ module.exports = function (projects, db) {
     // pass it in (also adding 'db' as another argument on line 6)
 
     app.use(express.session({
-    	secret: dbSessionPass,
+    	secret: 'test',
         store: new MongoStore({
         	mongoose_connection: db
         })
