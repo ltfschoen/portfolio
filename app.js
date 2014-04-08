@@ -18,13 +18,19 @@ module.exports = function (projects) {
 	var app = express();
 
 	// all environments
-	
-	// app.set('port', process.env.PORT || 3000);
 
-	var port = Number(process.env.PORT || 5000);
-	app.listen(port, function() {
-	  console.log("Listening on " + port);
-	});
+	// Nodejitsu uses this port 5000 according to jitsu log 
+	if ('production' == app.get('env')) {
+	  app.set('port', process.env.PORT || 5000);
+	} else {
+	  app.set('port', process.env.PORT || 3000);
+	};
+
+	// // test what port the server listens on in production and then hardcode
+	// var port = Number(process.env.PORT || 5000);
+	// app.listen(port, function() {
+	//   console.log("Listening on " + port);
+	// });
 
 	app.set('views', path.join(__dirname, 'views'));
 	app.set('view engine', 'jade');
