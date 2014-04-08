@@ -1,7 +1,3 @@
-// load the .env variables to hide secret keys
-var dotenv = require('dotenv-node');
-new dotenv();
-
 var http = require('http');
 
 // import seed data from /data/index.js as an object
