@@ -1,6 +1,6 @@
 {
   "name": "portfolio",
-  "version": "0.0.0-3",
+  "version": "0.0.0-4",
   "description": "developer portfolio of luke schoen",
   "private": true,
   "scripts": {
@@ -28,7 +28,8 @@
     "jade": "*",
     "mongoose": "^3.8.8",
     "foreman": "0.2.1",
-    "dotenv-node": "0.0.2"
+    "dotenv-node": "0.0.2",
+    "optimist": "0.6.1"
   },
   "devDependencies": {
     "mocha": "^1.18.2",
