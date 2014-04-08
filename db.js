@@ -1,7 +1,3 @@
-// load the .env variables to hide secret keys
-var dotenv = require('dotenv-node');
-new dotenv();
-
 var mongoose = require('mongoose');
 
 // load secret keys (i.e. to connect to mongolab database)
