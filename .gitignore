@@ -32,3 +32,6 @@ coverage
 
 # dotenv-node file .env to prevent visibility on github of secret keys
 .env
+
+# ignore large test file data.json
+data.json
