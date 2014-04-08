@@ -2,7 +2,6 @@
   "name": "portfolio",
   "version": "0.0.0",
   "description": "developer portfolio of luke schoen",
-  "main": "server.js",
   "private": true,
   "scripts": {
     "start": "node server.js",
