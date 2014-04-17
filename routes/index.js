@@ -6,6 +6,34 @@
 // include schema for 'projects' to connect to mongo labs database
 // used to save records to the database 
 var ProjectSchema = require('../schemas/project');
+// require core module 'events' and get property EventEmitter from module
+var Emitter = require('events').EventEmitter;
+
+// create new emitter and assign to new instance of Emitter
+var projectEmitter = new Emitter();
+
+// create a listener for the 'finished' event
+// listeners will record the data in the mongo lab db 
+// args: name of event, function taking 'project' as single arg
+projectEmitter.on('finished', function(project) {
+	// save data to the mongo lab database 'projects'
+	// with timestamp 
+	var record = new ProjectSchema(
+		project.getInformation()
+	);
+	
+	// takes a function and argument for any errors that occur
+	record.save(function(err) {
+		if (err) {
+			console.log(err);
+		};
+	});
+});
+
+// create a second listener for the 'finished' event
+projectEmitter.on('finished', function(project) {
+	console.log("Project finished: " + project.data.number);
+});
 
 // wrap this file into a module.exports function with 'projects'
 // as single argument
@@ -22,7 +50,7 @@ module.exports = function (projects) {
 		// set each object property to and object created by 
 		// project module
 		projects[number] = project.create(projects[number]); 
-	}
+	};
 
 	// output results to console
 	console.log("\nProject count: " + project.getCount() + "\n");
@@ -40,6 +68,12 @@ module.exports = function (projects) {
 	functions.project = function(req, res){
 		// source of 'number' param defined in app.js
 		var number = req.param('number'); 
+		
+		// sessions are available in this Express app
+		// stored in mongo lab database
+		// track last project user viewed, display it on project list page
+		// use request property called 'session' and set it
+		req.session.lastNumber = number; 
 
 		// use 'number' to perform look-up only 
 		// if valid project specified. 
@@ -51,7 +85,7 @@ module.exports = function (projects) {
 			// else fetch record at this 'number'
 			// and get info from project, sending info back as JSON
 			res.json(projects[number].getInformation());
-		}  
+		};
 	};
 
 	functions.completed = function (req, res){
@@ -63,27 +97,14 @@ module.exports = function (projects) {
 			// use triggerCompleted() method to change project record
 			projects[number].triggerFinish();
 
-			// save data to the mongo lab database 'projects'
-			// with timestamp 
-			var record = new ProjectSchema(
-				projects[number].getInformation()
-			);
+			// emit an event just after project has finished
+			// args: event type, type of data to pass (project itself)
+			projectEmitter.emit('finished', projects[number]);
 			
-			// takes a function and argument for any errors that occur
-			record.save(function(err) {
-				if (err) {
-					console.log(err);
-					// tell browser there was internal server error 500
-					// and unable to save the record
-					res.status(500).json({status: 'failure'});
-				} else {
-					res.json({status: 'success'});
-				}
-			});
-
-			// send a status of done when complete 
-			res.json({status: 'done'});
-		}  
+			// send success status immediately confirming project finished
+			// to avoid user waiting for delays of record being saved first
+			res.json({status: 'success'});	
+		}; 
 	};
 
 
@@ -110,7 +131,7 @@ module.exports = function (projects) {
 		// iterate over all projects to get project data and put it into an array. avoids invalid JSON file with numbers as property names.
 		for(var number in projects) {
 			projectData.push(projects[number].getInformation());
-		}
+		};
 		res.json(projectData);
 	};
 
@@ -131,10 +152,34 @@ module.exports = function (projects) {
 				// render jade view called 'stacks'
 				res.render('stacks', {
 					title: 'List of Stacks for Completed Projects',
-					listStacks: listStacks
+					listStacks: listStacks,
+					// pass in last viewed project (for sessions)
+					lastNumber: req.session.lastNumber
 				});
 			};
 		});
+	};
+
+	// define two route handlers for 'user' and 'login' for Passport
+	functions.login = function(req, res) {
+		// call render method of response object
+		// pass in two args: login (jade view), title
+		res.render('login', {title: 'Log in'});
+	};
+
+	functions.user = function(req, res) {
+		// check the user property session of Passport
+		// redirect user to login page if not actually there
+		if (req.session.passport.user === undefined) {
+			res.redirect('/login');
+		} else {
+		// render user page if valid user. call 'user' view. 
+		// pass in title, pass in user info
+			res.render('user', {
+				title: 'Welcome!',
+				user: req.user
+			});
+		};
 	};
 
 	// return functions from this function
