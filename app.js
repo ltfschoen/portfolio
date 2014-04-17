@@ -81,6 +81,8 @@ module.exports = function (projects) {
 	// add stacks list
 	app.get('/stacks', routes.listStacks);
 
+	app.get('/', routes.index);
+
 	return app;
 
 };

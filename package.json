@@ -29,7 +29,7 @@
     "mongoose": "^3.8.8",
     "foreman": "0.2.1",
     "dotenv-node": "0.0.2",
-    "optimist": "0.6.1"
+    "optimist": "0.6.1",
   },
   "devDependencies": {
     "mocha": "^1.18.2",

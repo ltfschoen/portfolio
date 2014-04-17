@@ -3,3 +3,7 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  // placeholder for name
+  h1 Welcome {{name}} 
+  // ng-model binds variable so auto reflected in tag when entered
+  input(ng-model='name', placeholder='Please enter your name...')
