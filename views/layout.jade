@@ -1,8 +1,18 @@
 doctype html
-html
+// activate angular
+html(lang="en", ng-app="ng-app")
   head
     title= title
+    // reset css method 'normalize'
+    link(rel='stylesheet', href='/stylesheets/normalize.css')
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    script(type='text/javascript' src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.js')
+    script(type='text/javascript' src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-route.js')
+    script(type='text/javascript' src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-resource.js')
+    // inline js
+    script.
+      var app = angular.module('ng-app', ['ngRoute']);
+      var resources = angular.module('ng-app', ['ngResource']);
   body
     div.container
       // define block content as a placeholder

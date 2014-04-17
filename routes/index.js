@@ -107,6 +107,13 @@ module.exports = function (projects) {
 		}; 
 	};
 
+
+	functions.index = function (req, res) {
+		res.render('index', {
+			title: 'Portfolio', // defined in index.jade
+		});
+	};
+
 	functions.list = function (req, res){
 		// handler fn to call render method of the response object
 		// two arguments: view, object with data to pass to view

@@ -1,10 +1,10 @@
 {
   "name": "portfolio",
-  "version": "0.0.0",
+  "version": "0.0.0-4",
   "description": "developer portfolio of luke schoen",
-  "main": "index.js",
   "private": true,
   "scripts": {
+    "start": "node server.js",
     "test": "./node_modules/.bin/istanbul test ./node_modules/.bin/_mocha -- -R spec"
   },
   "repository": {
@@ -27,6 +27,9 @@
     "express": "^3.5.1",
     "jade": "*",
     "mongoose": "^3.8.8",
+    "foreman": "0.2.1",
+    "dotenv-node": "0.0.2",
+    "optimist": "0.6.1",
     "connect-mongo": "^0.4.0",
     "passport": "^0.2.0",
     "passport-local": "^1.0.0"
@@ -35,7 +38,11 @@
     "mocha": "^1.18.2",
     "should": "^3.2.0",
     "supertest": "^0.10.0",
-    "istanbul": "^0.2.7",
-    "dotenv-node": "0.0.2"
-  }
+    "istanbul": "^0.2.7"
+  },
+  "engines": {
+    "node": "0.10.26",
+    "npm": "1.4.3"
+  },
+  "subdomain": "lukeschoen"
 }
