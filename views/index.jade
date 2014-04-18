@@ -14,13 +14,16 @@ block content
 	div(ng-controller='AppCtrl').container  
 		h1 ProjectList
 		p
-		| List of projects 
-		// supply 'project' object with ng-repeat directive
-		// supply directive with 'project in projects'
-		// ng-repeat must be within scope of ng-controller scope
-		// as the controller function definition contains a scope variable
-		// that angular uses for dependency injection to supply correct object
-		ul(ng-repeat='project in projects')#projects
-			li {{project.code}}
-			li {{project.name}}
-			li {{project.url}}
+			| List of projects 
+			// supply 'project' object with ng-repeat directive
+			// supply directive with 'project in projects'
+			// ng-repeat must be within scope of ng-controller scope
+			// as the controller function definition contains a scope variable
+			// that angular uses for dependency injection to supply correct object
+			// string literal with pipe and currency filter for price
+			ul(ng-repeat='project in projects')#projects
+				li {{project.code}} - {{project.name | uppercase}} - {{project.url}} - {{project.price | currency}}
+		// debug to view entire project object as a string using JSON filter
+		// check if able to get data set in scope variable
+		p.
+			{{projects | json}}

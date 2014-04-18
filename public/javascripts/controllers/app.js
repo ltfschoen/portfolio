@@ -11,16 +11,18 @@ function AppCtrl ($scope) {
       "stack": [
         "Ruby",
         "Rails"
-      ]
+      ],
+      "price": 4000
     },
     "Littlehumans": {
       "code": "LHM",
       "name": "Littlehumans",
-      "url": "http://trendmyhunch.herokuapp.com",
+      "url": "http://littlehumans.herokuapp.com",
       "stack": [
         "jQuery",
         "Rails"
-      ]
+      ],
+      "price": 5000
     }
   };
 }
