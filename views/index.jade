@@ -3,24 +3,43 @@ extends layout
 block content
 	h1= title
 	p Welcome to #{title}
-	// placeholder for name
+	//- placeholder for name
 	h1 Welcome {{name}} 
-	// ng-model binds variable so auto reflected in tag when entered
-	input(ng-model='name', placeholder='Please enter your name...')
-	// display app list
-	// bootstrap container
-	// tell angular to use 'AppCtrl' function in server.js
-	// and use it as the controller for this element
-	div(ng-controller='AppCtrl').container  
+	//- ng-model binds variable so auto reflected in tag when entered
+	input(ng-model='name', placeholder='Please enter your name...').form-control
+	//- display app list
+	//- bootstrap container
+	//- tell angular to use 'AppCtrl' function in server.js
+	//- and use it as the controller for this element
+	div(ng-controller='AppCtrl').container 
 		h1 ProjectList
-		p
-		| List of projects 
-		// supply 'project' object with ng-repeat directive
-		// supply directive with 'project in projects'
-		// ng-repeat must be within scope of ng-controller scope
-		// as the controller function definition contains a scope variable
-		// that angular uses for dependency injection to supply correct object
-		ul(ng-repeat='project in projects')#projects
-			li {{project.code}}
-			li {{project.name}}
-			li {{project.url}}
+		//- left column
+		div.pull-left.span6
+			p
+				| List of projects 
+				//- supply 'project' object with ng-repeat directive
+				//- supply directive with 'project in projects'
+				//- ng-repeat must be within scope of ng-controller scope
+				//- as the controller function definition contains a scope variable
+				//- that angular uses for dependency injection to supply correct object
+				//- string literal with pipe and currency filter for price
+				ul
+					li(ng-repeat='project in projects')
+						a(href='' ng-click='setProject(project.code)')
+							{{project.code}} - {{project.name | uppercase}} - {{project.url}} - {{project.price | currency}} - 
+						a(href='' ng-click='editProject(project.code)')
+				//- ng-show evaluates variable in current scope and determines if null, undefined, or false (and does not display)
+				//- NOT WORKING. NOT FINDING CURRENTPROJECT!!!
+				p(ng-show='currentProject')
+					| Current project: {{currentProject.name}}
+				script.
+					console.log(currentProject.name)
+			//- debug to view entire project object as a string using JSON filter
+			//- check if able to get data set in scope variable
+			p.
+				{{projects | json}}
+		//- ng-include allows use separate file for markup (partial)
+		//- specify scope variable for src (sidebarURL set in pub/js/con/app.js
+		//- NOT LOADING BELOW PARTIALS PROPERLY.
+		div(ng-include src='sidebarURL').span5
+		div(ng-include src='formURL').span12
