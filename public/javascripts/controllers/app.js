@@ -30,7 +30,7 @@ function AppCtrl ($scope) {
 	// NOT WORKING - HTML OR JADE VERSION (currentProject not defined error)
 	// set sidebarURL used in index.jade
 	//$scope.sidebarURL = "../partials/project.jade";
-	$scope.formURL = "../partials/form.jade";
+	//$scope.formURL = "../partials/form.jade";
 	//$scope.sidebarURL = "../partials/project.html";
 	//$scope.formURL = "../partials/form.html";
 
