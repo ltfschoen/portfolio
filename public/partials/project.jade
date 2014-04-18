@@ -1,0 +1,10 @@
+// ng-show hides markup when currentProject is not set
+div(ng-show='currentProject')
+	h3 {{currentProject.name}}
+	h4 Stacks 
+	ul
+		// cycle through stacks of currentProject
+		li(ng-repeat='stack in currentProject.stacks')
+			{{stack}}
+	script.
+		console.log(currentProject.stacks)
