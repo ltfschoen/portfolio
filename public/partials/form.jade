@@ -3,3 +3,4 @@ div(ng-show='editing in projects')
   h4 Editing Project
   // bind name of project being edited to update in real-time
   input(ng-model='editing.name', value='').input-xlarge
+  {{projects | json}}

@@ -1,10 +1,16 @@
-// ng-show hides markup when currentProject is not set
+//- ng-show hides markup when currentProject is not set
 div(ng-show='currentProject in projects')
 	h3 {{currentProject.name}}
 	h4 Stacks 
 	ul
-		// cycle through stacks of currentProject
+		//- cycle through stacks of currentProject
+		//- 
 		li(ng-repeat='stack in currentProject.stacks')
-			{{stack}}
+			//- link each project to an individual project page 
+			//- wrap 'stack' variable in individual anchor tag 
+			//- use ng-href directive to prevent browser default action
+			//- as will supply variable and want ensure it is avail when click link
+			//- this route is also added to the app in app.js (when)
+			a(ng-href='#/projects/{{stack}}'){{stack}}
 	script.
 		console.log(currentProject.stacks)

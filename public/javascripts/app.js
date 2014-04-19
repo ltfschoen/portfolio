@@ -19,12 +19,26 @@ function portfolioRouter ($routeProvider) {
 		// for highlighting to take place we must specify the scope in our controller. get AngularJS pass in the scope through dependency injections using $scope
 		// PARTIALS: USE BELOW
 		.when('/', {templateUrl: 'partials/form.jade', 
-		controller: function ($scope) {
-			$scope.setActive('stacks');
-		}})
+		// controller: function ($scope) {
+		// 	$scope.setActive('stacks');
+		// }})
+    // refactor to just specify names of controllers and move functions in separate controller files
+    controller: 'StacksCtrl'})
 		// NON-PARTIAL (MARKUP): USE BELOW
-		.when('/projects', {template: '<h3>Projects</h3>',
-		controller: function ($scope) {
-			$scope.setActive('projects');
-		}});
+			// test the power of AngularJS nesting. modification of inner scope not effect outer scope (only access allowed)
+	  $scope.projects = {};
+	  .when('/projects/:projectCode', {
+	  	templateUrl: 'partials/project.jade',
+	  	controller: 'ProjectCtrl'
+	  })
+	  //- define route to display two projects
+	  .when('/projects/:project1/:project2', {
+	  	templateUrl: 'partials/two_projects.jade',
+	  })
+		.when('/projects', {template: '<h3>Projects</h3> {{projects | json}}',
+		// controller: function ($scope) {
+		// 	$scope.setActive('projects');
+		// }});
+    // refactor to just specify names of controllers and move functions in separate controller files
+    controller: 'ProjectsCtrl'});
 }
