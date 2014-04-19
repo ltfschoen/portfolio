@@ -1,6 +1,8 @@
-Portfolio
-=========
+MEAN Portfolio Test
+===================
 
-Developer portfolio of Luke Schoen prepared in Node.js
+References chapters of the following from Lynda.com:
+ - "Node.js Essential Training with Joseph LeBlanc" 
+ - "Up and Running with AngularJS(2013) with Joseph LeBlanc"
 
-Prepared with reference chapters of "Node.js Essential Training with Joseph LeBlanc" at Lynda.com
+Uses MEAN stack (MongoDB, Express, AngularJS, Node.js)

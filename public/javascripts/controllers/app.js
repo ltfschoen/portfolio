@@ -2,6 +2,14 @@
 // angular parses first
 // angular pulls '$scope' object and supply into function
 function AppCtrl ($scope) {
+	$scope.setActive = function (type) {
+		// set scope variables to blank so class for each scope item is cleared
+		// highlights the link that is active
+		$scope.stacksActive = '';
+		$scope.projectsActive = '';
+		// lookup scope variable to set to Active
+		$scope[type + 'Active'] = 'active';
+	};
 
   // 'projects' is a an object and a property of '$scope'	
   $scope.projects = {
