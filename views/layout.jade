@@ -1,6 +1,8 @@
 doctype html
 // activate angular
-html(lang="en", ng-app="ng-app")
+//html(lang="en", ng-app="ng-app")
+// use module in js/app.js for different view
+html(lang="en", ng-app="portfolio")
   head
     title= title
     // reset css method 'normalize'
@@ -14,10 +16,12 @@ html(lang="en", ng-app="ng-app")
     script(type='text/javascript' src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-resource.js')
     // javascript file used as angular controller
     script(type='text/javascript' src='/javascripts/controllers/app.js')
+    // serves as overall file for the app (Angular 'views')
+    script(type='text/javascript' src='/javascripts/app.js')
     // inline js
     script.
-      var app = angular.module('ng-app', ['ngRoute']);
-      var resources = angular.module('ng-app', ['ngResource']);
+      var app = angular.module('portfolio', ['ngRoute']);
+      var resources = angular.module('portfolio', ['ngResource']);
   body
     div.container
       // define block content as a placeholder

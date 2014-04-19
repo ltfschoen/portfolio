@@ -16,6 +16,19 @@ block content
 		//- left column
 		div.pull-left.span6
 			p
+				| Navigation
+				ul(class='nav nav-pills') 
+					//- used directive ng-class to tell AngularJS the scope variable to use for class of the list item, in this case 'stacksActive'
+					li(ng-class='stacksActive')
+						//- add ng-click directive to each link with name of scope variable without 'Active' as argument
+						//- updated setActive function in /js/controllers/app.js
+						//- a(href='#' ng-click="setActive('stacks')") Stacks
+						//- shift setActive functionality to the controller so Active not bound to the click event so works correctly
+						a(href='#') Stacks
+					li(ng-class='projectsActive')
+						//- a(href='#/projects' ng-click="setActive('projects')") Projects
+						a(href='#/projects') Projects
+			p
 				| List of projects 
 				//- supply 'project' object with ng-repeat directive
 				//- supply directive with 'project in projects'
@@ -25,8 +38,7 @@ block content
 				//- string literal with pipe and currency filter for price
 				ul
 					li(ng-repeat='project in projects')
-						a(href='' ng-click='setProject(project.code)')
-							{{project.code}} - {{project.name | uppercase}} - {{project.url}} - {{project.price | currency}} - 
+						a(href='' ng-click='setProject(project.code)') {{project.code}} - {{project.name | uppercase}} - {{project.url}} - {{project.price | currency}} - 
 						a(href='' ng-click='editProject(project.code)')
 				//- ng-show evaluates variable in current scope and determines if null, undefined, or false (and does not display)
 				//- NOT WORKING. NOT FINDING CURRENTPROJECT!!!
@@ -42,4 +54,9 @@ block content
 		//- specify scope variable for src (sidebarURL set in pub/js/con/app.js
 		//- NOT LOADING BELOW PARTIALS PROPERLY.
 		div(ng-include src='sidebarURL').span5
-		div(ng-include src='formURL').span12
+		div(ng-include src='formURL').span12 
+		//- ng-view allows specify placeholder to display 'view'
+		//- updates using AngularJS
+		//- 'controller' logic in js/controllers/app.js
+		//- 'view' logic added to js/app.js
+		div(ng-view)
