@@ -1,0 +1,28 @@
+h3 Reserve Project 
+div(class='controls controls-row')
+  //- inputs bound to scope of reserve object with ng-model
+  input(type='text', class='input-small', placeholder='Name', ng-model='stack.name')
+a(href='' class='btn btn-primary' ng-click='reserveProject()') 
+	| Reserve
+h3 Your Reservations
+
+//- if length one or more they will display
+table(ng-show='reservations.length').table
+	thead
+		tr
+			th Code
+			th Name
+			th Url
+			th Stacks
+	tbody
+		tr(ng-repeat='project in projects')
+			td {{project.code}}
+			td 
+				a(ng-href='#/projects/{{project.name}}')
+					{{project.name + ' - ' + project.url}}
+			td
+				a(ng-href='#/projects/{{project.stacks}}')
+					{{project.stacks}}
+//- displays when length is zero (opposite of show)
+div(ng-hide='reservations.length' class='alert alert-info')
+	| No current reservations. Create new?

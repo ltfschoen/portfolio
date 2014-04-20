@@ -43,4 +43,6 @@ function portfolioRouter ($routeProvider) {
 		// }});
     // refactor to just specify names of controllers and move functions in separate controller files
     controller: 'ProjectsCtrl'});
+    .when('/stacks', {templateUrl: 'partials/stacks.jade',
+    controller: 'StacksCtrl'});
 }

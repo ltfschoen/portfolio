@@ -14,3 +14,6 @@ angular.module('projectServices', ['ngResource'])
 	.factory('Projects', function($resource) {
 		return $resource('/projects');
 	});
+	.factory('Stacks', function($resource) {
+		return $resource('/stacks');
+	});
