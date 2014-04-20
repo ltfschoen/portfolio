@@ -1,5 +1,5 @@
-// separate controller used with router
-function ProjectsCtrl ($scope) {
+// separate projects controller used with router
+function ProjectsCtrl ($scope, Project) {
 	$scope.setActive('projects');
 
 	// NOT WORKING - HTML OR JADE VERSION (currentProject not defined error)
@@ -19,11 +19,16 @@ function ProjectsCtrl ($scope) {
 	$scope.setProject = function (code) {
 		// lookup projects in the projects scope variable
 		// then sets currentProject in same scope
-		$scope.currentProject = $scope.projects[code];
+		// modify to pull individual records
+		//- $scope.currentProject = $scope.projects[code];
+		$scope.currentProject = Project.get({projectCode: code});
 	};
 
 	$scope.editProject = function (code) {
 		$scope.editing = $scope.projects[code];
 	};
 
+	//- updated projects controller to bring in Project resources defined in ./services.js
+	//- set Project scope variable by assigning it data from server
+	$scope.projects = Project.query();
 }

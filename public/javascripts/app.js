@@ -2,7 +2,8 @@
 // module self contained code designed to work with AngularJS
 // module method takes two args (name of module, any dependencies needed for the module). use empty array if no dependencies 
 // to use this module, assign this module to the app, by updating layout.jade with <html ng-app="portfolio"  ... instead of just <html ng-app>
-angular.module('portfolio', [])
+// allow AngularJS to find project object as supply it in the project controller
+angular.module('portfolio', ['portfolioServices'])
 	// call chained method called 'config'
 	// pass in fn to define the views
 	// create fn called 'portfolioRouter'
@@ -26,7 +27,7 @@ function portfolioRouter ($routeProvider) {
     controller: 'StacksCtrl'})
 		// NON-PARTIAL (MARKUP): USE BELOW
 			// test the power of AngularJS nesting. modification of inner scope not effect outer scope (only access allowed)
-	  $scope.projects = {};
+	  //$scope.projects = {};
 	  .when('/projects/:projectCode', {
 	  	templateUrl: 'partials/project.jade',
 	  	controller: 'ProjectCtrl'
