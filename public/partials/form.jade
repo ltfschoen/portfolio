@@ -1,6 +1,9 @@
-// set to editing scope variable, so only show when 'editing' value is set
+//- set to editing scope variable, so only show when 'editing' value is set
 div(ng-show='editing in projects')
   h4 Editing Project
-  // bind name of project being edited to update in real-time
+  //- bind name of project being edited to update in real-time
   input(ng-model='editing.name', value='').input-xlarge
   {{projects | json}}
+
+
+  

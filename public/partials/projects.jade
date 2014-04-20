@@ -1,0 +1,26 @@
+//- search Projects 
+h3 Search for Projects
+div(class='controls controls-row')
+	//- inputs bound to scope with ng-model
+  input(type='text', class='input-small', placeholder='Name', ng-model='search.name')
+  input(type='text', class='input-small', placeholder='Stack', ng-model='search.stacks')
+	table.table
+  	thead
+  		tr
+  			th Code
+    		th Name
+    		th Url
+    		th Stacks
+    tbody
+    	//- ng-repeat directive cycles over all projects in scope object
+    	//- pass in projects through a filter
+    	//- filtered is bound to the search object 
+    	//- which is the same as the ng-model so only matching displayed
+    	tr(ng-repeat='project in projects | filter:search')
+    		td {{project.code}}
+    		td 
+    			a(ng-href='#/projects/{{project.name}}')
+    				{{project.name + ' - ' + project.url}}
+    		td
+    			a(ng-href='#/projects/{{project.stacks}}')
+    				{{project.stacks}}

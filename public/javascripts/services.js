@@ -11,3 +11,6 @@ angular.module('projectServices', ['ngResource'])
 		//- if projectCode not specified it will simply pull projects data
 		return $resource('/projects/:projectCode');
 	})
+	.factory('Projects', function($resource) {
+		return $resource('/projects');
+	});

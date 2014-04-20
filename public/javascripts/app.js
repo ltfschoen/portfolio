@@ -35,8 +35,9 @@ function portfolioRouter ($routeProvider) {
 	  //- define route to display two projects
 	  .when('/projects/:project1/:project2', {
 	  	templateUrl: 'partials/two_projects.jade',
-	  })
-		.when('/projects', {template: '<h3>Projects</h3> {{projects | json}}',
+	  })/
+		//.when('/projects', {template: '<h3>Projects</h3> {{projects | json}}',
+		.when('/projects', {templateUrl: 'partials/projects.jade',
 		// controller: function ($scope) {
 		// 	$scope.setActive('projects');
 		// }});
