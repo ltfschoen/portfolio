@@ -1,5 +1,5 @@
 MEAN Portfolio Test
-===================
+-------
 
 References chapters of the following from Lynda.com:
  - "Node.js Essential Training with Joseph LeBlanc" 
@@ -7,12 +7,43 @@ References chapters of the following from Lynda.com:
 
 Uses MEAN stack (MongoDB, Express, AngularJS, Node.js)
 
-Project Status
-===============
-Experimental only. No longer active.
+Technologies Used
+-------
+* View Engine - Jade
+* Web Server
+  - Server - NodeJS Express Module Server App
+  - Session Storage - Express Cookie Parser for Session Storage using ConnectMongo
+  - Logins (using Express Middleware for User Session Storage) - Passport
+* Testing
+  - Custom HTTP GET and PUT Requests - Chrome Postman, Supertest
+  - Unit Tests - Mocha, Should
+  - Code Coverage - Istabul
+  - Techniques - Helper Method for Unit Testing of Endpoints with Decoupled Data
+* Data
+  - Seed Data - JSON
+  - NoSQL - Mongoose Model Schema with Event Emitters and Listeners to handle asyncronous data recording across a connection to Mongo Lab DB
+* Object-Oriented Design
+  - Technique - Factory Design Pattern with Module Exports (consistent creation and retrieval of new object instances)
+* Secret Keys
+  - DotEnv
+* File System
+  - File System Piping in Chunks of Data from Readable JSON to Writable Stream File with cycle of applying Timeout and Pausing the Stream before Event Listeners respond to each subsequent Incoming Chunk of Data and output the Chunk length and beginning and end demarcations to the terminal
+* Telnet
+  - Telnet Module to connect to Server with TCP Connection Duplex Stream that involved the creation of a Write Stream to Pipe to a Log File with a completion Event Listener triggering a Read Stream logging stored information to the terminal
+* REPL
+  - Optimist Module custom REPL outputs Data Modifications to the command line terminal in real-time without requiring HTTP GET and PUT requests (using Postman)
+* Normalize.css
+  - Reset CSS
+* Responsive Framework - Bootstrap
+* AngularJS
+  - Boilerplate with ngApp, ngModel (to bind Jade), ngRoute, ngViews (route and load views without updating whole page), ngResource, ngControllers, ngRepeat, $scope (pass in scope dependency injection), Filters (of data displayed), ngShow, ngInclude (Partials), Nested AngularJS Scopes (Outer and Inner Controller and Variables and Links for Single Page App), $routeProvider (build front-end Single Page App SPA for routing with convenience of all URLs that are bound to markups or partials being interpretted by AngularJS rather than server). Controllers used to change the Navigation State by highlighting Active link buttons bound to URL loaded or link clicked (instead of just being bound to ngClick event) with Bootstraps Active and to show possible Views, 
 
-Testing the App
-===============
+Project Status
+-------
+Experimental only. No longer active. Attempted to Deploy to Heroku and Nodejitsu with Foreman unsuccessfully
+
+Play with the App
+-------
 Run server: 
 ```
 node server
@@ -25,7 +56,7 @@ Open app in browser:
  - localhost:300/login
 
 Action List
-===============
+-------
  - App currently runs on local server only
  - Deploying to Heroku gives the following Mongo errors in the heroku logs:
  ```
