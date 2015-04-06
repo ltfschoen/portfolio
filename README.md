@@ -13,6 +13,11 @@ Experimental only. No longer active.
 
 Testing the App
 ===============
+Install Node Module Dependencies
+```
+npm install
+```
+
 Run server: 
 ```
 node server
