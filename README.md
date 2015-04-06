@@ -44,6 +44,10 @@ Experimental only. No longer active. Attempted to Deploy to Heroku and Nodejitsu
 
 Play with the App
 -------
+Install Node Module Dependencies
+```
+npm install
+```
 Run server: 
 ```
 node server
